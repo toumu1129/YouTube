@@ -3,7 +3,7 @@ id: s002
 生き物: ドバト（カワラバト）
 フック型: C（常識の否定）
 尺: 30秒
-ステータス: 下書き
+ステータス: 裏取り済
 ---
 
 # タイトル案
@@ -24,10 +24,12 @@ id: s002
 
 **文字数：** 194字 ／ 200字以内
 
-# 出典候補（公開前に原典を確認すること）
+# 出典（確認済 2026-09-16）
 
-- [ ] （A）Frost, B. J. (1978) "The optokinetic basis of head bobbing in the pigeon", Journal of Experimental Biology — トレッドミル実験の原典
-- [ ] （A/B）鳥類の頭部安定化（head stabilization）に関する総説
+- [x] （A）Frost, B. J. (1978)「The Optokinetic Basis of Head-Bobbing in the Pigeon」*Journal of Experimental Biology* 74(1): 187–195
+  https://journals.biologists.com/jeb/article/74/1/187/22520/
+  → 首振りは「頭が空間に固定される相」と「前方へ一気に送られる相」の2相からなること、
+    **トレッドミル上では首振りが消える**ことを示した原典。台本の記述と一致。
 
 # 素材
 
@@ -47,7 +49,8 @@ id: s002
 
 ━━━━━━━━━━
 出典
-・
+・Frost, B. J. (1978) The Optokinetic Basis of Head-Bobbing in the Pigeon,
+　Journal of Experimental Biology 74(1): 187-195
 ━━━━━━━━━━
 
 ※わかっていないことは「わかっていない」と言う方針で作っています。

@@ -3,7 +3,7 @@ id: s009
 生き物: シロザケ
 フック型: B（なぜ疑問）
 尺: 30秒
-ステータス: 下書き
+ステータス: 裏取り済
 ---
 
 # タイトル案
@@ -24,14 +24,18 @@ id: s009
 
 **文字数：** 172字 ／ 200字以内
 
-# 出典候補（公開前に原典を確認すること）
+# 出典（確認済 2026-09-16）
 
-- [ ] （A）Hasler, A. D. & Wisby, W. J. (1951) 嗅覚刷り込み仮説の原典（American Naturalist）
-- [ ] （A/B）サケ科魚類の母川回帰と嗅覚に関する総説
-- [ ] （B）水産研究・教育機構など、公的機関のサケ回帰に関する解説
+- [x] （A）Hasler, A. D. & Wisby, W. J. (1951)
+  「Discrimination of stream odors by fishes and its relation to parent stream behavior」
+  *American Naturalist* 85: 223–238 → 嗅覚刷り込み仮説の原典
+- [x] （A）Wisby, W. J. & Hasler, A. D. (1954)
+  「Effect of olfactory occlusion on migrating silver salmon (O. kisutch)」
+  *Journal of the Fisheries Research Board of Canada* 11: 472–478
+  → Issaquah Creek の分岐点で、**嗅覚を塞いだ個体はランダムに分散**。
+    対照群は元の選択を再現した。台本の「鼻をふさぐと選べなくなる」はこの実験。
 
-> 補足：外洋での方位決定には地磁気の利用も示唆されている。
-> 「河口から上流は匂い」「外洋は地磁気の可能性」と**分けて言うこと**。混ぜると不正確になる。
+> 外洋での地磁気利用は別の話。台本では触れず、説明欄の補足にとどめている。
 
 # 素材
 
@@ -51,7 +55,10 @@ id: s009
 
 ━━━━━━━━━━
 出典
-・
+・Hasler & Wisby (1951) Discrimination of stream odors by fishes,
+　American Naturalist 85: 223-238
+・Wisby & Hasler (1954) Effect of olfactory occlusion on migrating silver salmon,
+　J. Fish. Res. Board Can. 11: 472-478
 ━━━━━━━━━━
 
 ※わかっていないことは「わかっていない」と言う方針で作っています。
