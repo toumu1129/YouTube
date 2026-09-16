@@ -52,8 +52,21 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 
 | 用途 | 素材 | 出どころ | ライセンス | 取得日 |
 |---|---|---|---|---|
-| 牛 | | Pexels / 牧場で撮影 | | |
-| 胃と磁石の図解 | | 自作イラスト | | |
+| ① 0:00–0:03 牛 | `cow_01.jpg` | Pexels https://www.pexels.com/video/brown-and-white-cow-with-horns-resting-outdoors-36421194/ | Pexels License（**クレジット必須**） | 2026-09-16 |
+| ② 0:03–0:07 牛用磁石 | `02_magnet.jpg` | 自作図解 | 自作 | 2026-09-16 |
+| ③ 0:07–0:20 飲み込み | `03_swallow.jpg` | 自作図解 | 自作 | 2026-09-16 |
+| ④ 0:20–0:27 胃の中の磁石 | `04_stomach.jpg` | 自作図解 | 自作 | 2026-09-16 |
+| ⑤ 0:27–0:30 牛 | `cow_05.jpg` | Pexels https://www.pexels.com/video/domestic-cattle-feeding-in-farm-10041402/ | Pexels License（**クレジット必須**） | 2026-09-16 |
+
+**概要欄に必ず入れるクレジット**
+
+```
+映像素材：Gizem Gökce / Pexels、Los Muertos Crew / Pexels
+```
+
+> 図解3枚は自作。`docs/04` の「仕組みの説明は実写より図のほうが伝わる」に従った。
+> 実写は Pexels のライセンス素材で、**クレジット表記が必要**。
+
 
 # 説明欄
 
