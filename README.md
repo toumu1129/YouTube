@@ -23,7 +23,9 @@
 
 ### 台本
 
-- [scripts/shorts/](scripts/shorts/) — 完成台本10本（`s001`〜`s010`）＋ [テンプレート](scripts/shorts/_template.md)
+- [scripts/shorts/](scripts/shorts/) — 完成台本25本（`s001`〜`s025`）＋ [テンプレート](scripts/shorts/_template.md)
+  - `s001`〜`s010` … 身近な生き物の「なぜ」
+  - `s011`〜`s025` … **人間の行為の理由**（競合分析で最強とわかった型）
 - [scripts/ideas/backlog.md](scripts/ideas/backlog.md) — ネタ95本ぶん（約3か月半分）
 - [docs/metrics.md](docs/metrics.md) — 投稿後の数字を記録する台帳
 
@@ -66,6 +68,7 @@
 | 6 | 編集3本 |
 | 7 | **初投稿。** 以後 21:00 に予約投稿 |
 | 8–13 | `s004`〜`s010` を同じ流れで。1日1本 |
+| 15〜 | `s011`〜`s025`（人間の行為の理由）へ。**この型を優先する** |
 | 14 | 数字を [metrics.md](docs/metrics.md) に記録。**維持率70%を切っていたら尺を25秒に詰める** |
 
 **60本まではフォーマットを変えない。** 変えるときは1要素ずつ。
