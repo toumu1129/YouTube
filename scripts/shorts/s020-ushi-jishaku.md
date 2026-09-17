@@ -56,12 +56,12 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 | ② 0:03–0:07 牛用磁石 | `f2.jpg` | 生成AI（ChatGPT）。プロンプトは `assets/s020/image-prompts.md` | 生成物 | 2026-09-17 |
 | ③ 0:07–0:20 飲み込み | `f3.jpg` | 同上 | 生成物 | 2026-09-17 |
 | ④ 0:20–0:27 胃の中の磁石 | `f4.jpg` | 同上 | 生成物 | 2026-09-17 |
-| ⑤ 0:27–0:30 牛の顔アップ | `f5.jpg` | Pexels https://www.pexels.com/video/close-up-footage-of-a-beef-cattle-8064212/ | Pexels License（**クレジット必須**） | 2026-09-17 |
+| ⑤ 0:27–0:30 牛の顔アップ（真正面） | `f5.jpg` | Pexels https://www.pexels.com/video/close-up-of-curious-cow-in-sunlit-pasture-39544476/ | Pexels License（**クレジット必須**） | 2026-09-17 |
 
 **概要欄に必ず入れるクレジット**
 
 ```
-映像素材：Ninety Seven Years / Pexels、Los Muertos Crew / Pexels
+映像素材：Ninety Seven Years / Pexels、celal keser / Pexels
 ```
 
 > 実写は Pexels のライセンス素材で、**クレジット表記が必要**。
