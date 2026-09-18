@@ -18,6 +18,7 @@
 | 3 | [docs/03-shorts-format.md](docs/03-shorts-format.md) | **台本フォーマット**。30秒5ブロック構成、フックの型、画面構成 |
 | 4 | [docs/04-production-workflow.md](docs/04-production-workflow.md) | **制作フロー**。音声・素材・編集・バッチ制作の組みかた |
 | 5 | [docs/05-publishing-checklist.md](docs/05-publishing-checklist.md) | **投稿チェックリスト**。タイトル・説明欄・ハッシュタグ・投稿後の動き |
+| — | [assets/channel/icon.png](assets/channel/icon.png) | **チャンネルアイコン**（800×800）。詳細は docs/01 §7 |
 | 6 | [docs/06-fact-checking.md](docs/06-fact-checking.md) | **ファクトチェック基準**。このチャンネルの差別化の中心 |
 | 7 | [docs/07-competitor-deep-dive.md](docs/07-competitor-deep-dive.md) | **競合の深掘り**。市場の4層構造、最強タイトル型の検証、真似してはいけない例 |
 | 8 | [docs/08-source-status.md](docs/08-source-status.md) | **出典確認の進捗**。確認済9本／未確認16本と、確認して判明したこと |
