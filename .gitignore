@@ -5,3 +5,10 @@ assets/*/*.mp4
 
 # OS等のゴミ
 .DS_Store
+
+# APIキー・秘密情報。誤って置いても絶対にコミットしない
+*.env
+.env*
+*api_key*
+*_key.txt
+secrets/

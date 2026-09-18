@@ -2,8 +2,12 @@
 """台本の図解プロンプトを、OpenAI API(gpt-image-1)で一括生成する。
 
 使い方:
-    export OPENAI_API_KEY=sk-...
     python3 tools/gen_diagrams.py assets/s0XX/prompts.json
+
+APIキーは環境変数 OPENAI_API_KEY があればそれを使う。なければ
+~/.openai_api_key（リポジトリの外、root権限のみ読み取り可）を読む。
+このBashツールはコマンドごとに新しいシェルを起動し環境変数を引き継がないため、
+セッションをまたいで `export` し続けるより、ファイルから読む方式のほうが確実。
 
 prompts.json の形式:
     [
@@ -21,11 +25,21 @@ prompts.json の形式:
   何度も経験したのと同じ理由）
 - 失敗した画像があっても他は続行し、最後にまとめて報告する
 """
-import base64, json, pathlib, sys
+import base64, json, os, pathlib, sys
 from openai import OpenAI
 from PIL import Image
 
 OW, OH = 1080, 1920
+KEY_FILE = pathlib.Path.home() / ".openai_api_key"
+
+def get_api_key():
+    if os.environ.get("OPENAI_API_KEY"):
+        return os.environ["OPENAI_API_KEY"]
+    if KEY_FILE.exists():
+        return KEY_FILE.read_text(encoding="utf-8").strip()
+    sys.exit(
+        f"OPENAI_API_KEYが見つからない。環境変数で渡すか、{KEY_FILE} にキーだけを書いて保存すること。"
+    )
 
 def cover_crop(im, ow, oh):
     im = im.convert("RGB")
@@ -50,7 +64,7 @@ def main():
         print(__doc__)
         sys.exit(1)
     jobs = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))
-    client = OpenAI()
+    client = OpenAI(api_key=get_api_key())
 
     ok, failed = [], []
     for job in jobs:
