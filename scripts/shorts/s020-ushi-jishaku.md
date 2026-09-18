@@ -81,13 +81,19 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 
 牛は草をほとんど噛まずに飲み込むため、牧草に混ざった針金や釘まで胃に入ります。
 金属が胃の壁を突き破ると命に関わるため、あらかじめ磁石を飲ませ、
-金属を一か所に集めて止めておきます。
+金属を一か所（第二胃）に集めておきます。
 
 ━━━━━━━━━━
 出典
 ・京都府丹後家畜保健衛生所「永久磁石 投与風景」
-・創傷性第二胃炎（hardware disease）の予防としてのカウマグネット投与
-　飲み込まれた金属の内訳：針金72%／金属片14%／釘・ネジ14%
+　https://www.pref.kyoto.jp/tango-kaho/documents/h29n022.pdf
+・飲み込まれた金属の内訳（針金72%／金属片14%／釘・ネジ14%）
+　https://www.proto-ex.com/data/971.html
+・創傷性第二胃炎（hardware disease）の病態
+　https://en.wikipedia.org/wiki/Hardware_disease
+（2026-09-16 参照）
+
+映像素材：Ninety Seven Years / Pexels、celal keser / Pexels
 ━━━━━━━━━━
 
 ※わかっていないことは「わかっていない」と言う方針で作っています。
