@@ -3,6 +3,11 @@
 assets/*/_*
 assets/*/*.mp4
 
+# gen_diagrams.py が作る中間生成物（元画像・視認性確認シート）。
+# 最終出力の f*.jpg があれば作り直せるため、リポジトリには含めない。
+assets/*/*_raw.png
+assets/*/*_preview.jpg
+
 # OS等のゴミ
 .DS_Store
 
