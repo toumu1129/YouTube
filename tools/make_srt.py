@@ -16,6 +16,7 @@ import imageio_ffmpeg
 
 NOISE_DB   = -38     # これより静かなら無音とみなす
 MIN_SIL    = 0.18    # この長さ以上の無音だけを区切りとして扱う
+MIN_SPEECH = 0.25    # これより短い発話区間は合成ノイズとみなして捨てる（VOICEVOXで観測）
 TAIL_GAP   = 0.06    # 次のカードが出る直前まで表示を残す
 MAX_PER_LN = 12      # 1行の最大文字数（docs/03 の指定）
 MIN_CLAUSE = 5       # これより短い文節は次に繋ぐ（AI音声は短い読点で息継ぎしない）
@@ -36,20 +37,27 @@ def speech_spans(audio):
         if s > t: spans.append((t, s))
         t = e
     if dur and dur > t: spans.append((t, dur))
+    # 極端に短い発話区間は、無音の中に紛れ込んだ合成ノイズとみなして捨てる
+    # （前後の区間と地続きの無音として扱う＝区間数から除外するだけでよい）
+    spans = [(a, b) for a, b in spans if b - a >= MIN_SPEECH]
     return spans, dur
 
-def clauses(text):
+def clauses(text, min_clause=MIN_CLAUSE):
     """。と、で割る。区切り文字は前の文節に残す。
 
-    ただし「牛は、」のような短い文節では AI音声が息継ぎしないため、
-    MIN_CLAUSE 未満は次の文節に繋ぐ。ここを切ると発話区間と数が合わなくなる。
+    min_clause > 0 のときは、短い文節（例:「牛は、」）を次の文節に繋ぐ。
+    AI音声の種類によって、短い読点でも息継ぎする/しないが分かれるため
+    （ElevenLabsはしない、VOICEVOXはする、など）、呼び出し側で
+    実測した発話区間数に合わせて min_clause=0（繋がない）を試すこと。
     """
     text = re.sub(r"\s+", "", text)
     raw = [c for c in re.findall(r"[^。、]*[。、]?", text) if c]
+    if min_clause <= 0:
+        return raw
     out, buf = [], ""
     for c in raw:
         buf += c
-        if len(buf) >= MIN_CLAUSE:
+        if len(buf) >= min_clause:
             out.append(buf); buf = ""
     if buf:
         if out: out[-1] += buf
@@ -60,7 +68,10 @@ def clauses(text):
 BREAK_TIERS = ("、。", "はがをにへでもと", "るたてりい")
 # ここで割ってはいけない2文字（「心臓まで達すること|があります」のような折れを防ぐ）
 NO_SPLIT = {"こと","もの","ため","よう","ます","ませ","でし","まし","れる","られ",
-            "です","ない","とい","いう","って","った","ある","いる"}
+            "です","ない","とい","いう","って","った","ある","いる",
+            # 助詞＋対比の「は」（「1週間で|は死にません」のような折れを防ぐ。
+            # 「からは」「までは」は「ら/で」+「は」としてここでカバーされる）
+            "では","には","とは","もは","へは","らは"}
 # 形式名詞の語尾。ここの「と」「の」は助詞ではないので、折り位置として降格する
 FORMAL_N = {"こと","もの","ため","よう","とき","ところ"}
 TIER_W   = 2.5       # 折り位置の良さ（tier）と中央からの距離の重みづけ
@@ -98,13 +109,19 @@ def ts(t):
 def main():
     audio, script = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
     out = pathlib.Path(sys.argv[3]) if len(sys.argv) > 3 else audio.with_suffix(".srt")
-    cs = clauses(script.read_text(encoding="utf-8"))
     spans, dur = speech_spans(audio)
+    text = script.read_text(encoding="utf-8")
 
-    if len(spans) == len(cs):
+    # 息継ぎの癖はAI音声エンジンごとに違う（短い読点で繋ぐ/繋がない）ので、
+    # 両方の割り方を試し、実測した発話区間数と一致する方を採用する。
+    candidates = [clauses(text, MIN_CLAUSE), clauses(text, 0)]
+    cs = next((c for c in candidates if len(c) == len(spans)), None)
+
+    if cs is not None:
         print(f"発話区間 {len(spans)} = 文節 {len(cs)}  → 実測で対応")
         pairs = list(zip(cs, spans))
     else:
+        cs = candidates[0]
         print(f"⚠ 発話区間 {len(spans)} ≠ 文節 {len(cs)}  → 字数比で按分。要手直し")
         total = sum(len(c) for c in cs); t = 0.0; pairs = []
         for c in cs:

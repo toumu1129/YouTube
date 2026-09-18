@@ -8,8 +8,15 @@ assets/*/*.mp4
 assets/*/*_raw.png
 assets/*/*_preview.jpg
 
+# gen_narration.py が作るナレーション音声。容量が大きく、台本(.md)と
+# エンジンさえあれば作り直せるため、リポジトリには含めない。
+# 文字起こし(*-narration.txt)と字幕(*.srt)はリポジトリに残す。
+assets/*/*-narration.wav
+assets/*/*-narration.mp3
+
 # OS等のゴミ
 .DS_Store
+__pycache__/
 
 # APIキー・秘密情報。誤って置いても絶対にコミットしない
 *.env
