@@ -30,6 +30,7 @@ from openai import OpenAI
 from PIL import Image
 
 OW, OH = 1080, 1920
+MODEL = "gpt-image-2"   # 比較テストはせず、2026-09時点の上位モデルとして採用
 KEY_FILE = pathlib.Path.home() / ".openai_api_key"
 
 def get_api_key():
@@ -73,7 +74,7 @@ def main():
         print(f"生成中: {out} ...")
         try:
             res = client.images.generate(
-                model="gpt-image-1",
+                model=MODEL,
                 prompt=job["prompt"],
                 size="1024x1536",   # 縦長。9:16に近い比率を指定し、あとで正確に切り出す
                 quality="high",
