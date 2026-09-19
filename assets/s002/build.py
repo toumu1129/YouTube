@@ -22,6 +22,14 @@ s002は画像ではなく動画クリップ5本（フリー素材2本＋Kling生
 - ④（f4-treadmill.mp4、8.04秒）：必要な尺にわずかに足りないので、
   過不足ぶんだけ再生速度を微調整して過不足なく尺を合わせる（体感できない程度の差）。
 - ⑤（f5-eye.mp4、20秒）：必要な尺だけ先頭から使う。
+
+【上シフト】投稿プレビューで確認したところ、ハトの被写体とテロップが画面下部に
+偏り、YouTube側のUI（タイトル・アカウント名など）と被ってしまった。そのため
+全カットの書き出し後、下側 REFRAME_PAD px を切り落とし、そこにボケた背景を
+敷いて埋める後処理（reframe_up）を挟む。被写体は動かさず、単に画面下側の
+余白を確保するだけ（＝見た目には「映像全体を上に寄せた」ことになる）。
+切り落とし幅は5素材のうち被写体が最も下まで来るカット（①②のパン、頭が
+y≈1545付近まで来る）でも被写体を切らない値として、実測フレームを見て決めた。
 """
 import re, subprocess, pathlib, imageio_ffmpeg
 
@@ -29,6 +37,7 @@ HERE = pathlib.Path(__file__).parent
 FF   = imageio_ffmpeg.get_ffmpeg_exe()
 OW, OH, FPS = 1080, 1920, 30
 ENC  = "-c:v libx264 -preset medium -crf 20 -pix_fmt yuv420p -r 30 -an".split()
+REFRAME_PAD = 350  # 下から切り落として空ける高さ(px)。ボケた背景で埋める
 
 # どの動画が、SRT の何枚目〜何枚目のカードに対応するか（1始まり・両端含む）。
 IMAGE_CARDS = [
@@ -128,6 +137,26 @@ def render_walk_pan(dur1, dur2, out1, out2):
             "-t", str(dur2), "-vf", f"{crop_expr(x_at_dur1)},{scale}"]
     subprocess.run(cmd2 + ENC + [str(out2)], check=True)
 
+def reframe_up(path, pad=REFRAME_PAD):
+    """被写体を動かさず、下 pad px を切り落として空け、ボケた背景で埋める。
+
+    前景＝元フレームの上 (OH-pad) px をそのまま使う（拡大しない＝被写体の
+    大きさも位置も変えない）。背景＝元フレーム全体をキャンバスサイズまで
+    引き伸ばしてぼかしたもの。前景を左上に重ねると、下側だけがボケた
+    背景になり、空いたように見える。
+    """
+    keep = OH - pad
+    tmp = path.with_name(path.stem + "_up.mp4")
+    filt = (
+        f"[0:v]scale={OW}:{OH},boxblur=30:2,eq=brightness=-0.2:saturation=0.8[bg];"
+        f"[0:v]crop={OW}:{keep}:0:0[fg];"
+        f"[bg][fg]overlay=0:0:shortest=1[v]"
+    )
+    cmd = [FF, "-y", "-loglevel", "error", "-i", str(path),
+           "-filter_complex", filt, "-map", "[v]"]
+    subprocess.run(cmd + ENC + [str(tmp)], check=True)
+    tmp.replace(path)
+
 def main():
     print("カット秒数（s002-narration.srt から実測で算出）")
     for vid, dur, half_speed in CUTS:
@@ -140,6 +169,9 @@ def main():
     for i, (vid, dur, half_speed) in enumerate(CUTS[2:], 3):
         src_start = 0.0 if vid == "f5-eye.mp4" else None
         render_segment(vid, dur, half_speed, src_start, segs[i - 1])
+
+    for s in segs:
+        reframe_up(s)
 
     lst = HERE / "_segs.txt"
     lst.write_text("".join(f"file '{s.name}'\n" for s in segs))
