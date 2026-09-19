@@ -10,8 +10,12 @@
 s002は画像ではなく動画クリップ5本（フリー素材2本＋Kling生成3本）を使う。
 クリップの長さと必要な尺が一致しないところは、以下のように処理する：
 
-- ①②（f1-2-walk.mp4、16秒）：同じ1本の連続したショットを、①の終わりから
-  ②を続けて切り出す（ハトが同じ個体・同じ歩きなので、途中で頭出しし直さない）。
+- ①②（f1-2-walk.mp4、元は3840x2160・15.52秒の無加工クリップ）：
+  ハトが歩きながら向きを変えるため、固定クロップだと頭が枠外に見切れる瞬間がある
+  （実際に見切れて手直しになった）。そのため s020 の寄り移動と同じ考え方で、
+  クロップ位置を時間とともに動かして頭を追いかける「パン」をかける。
+  ①②は同じ1本の連続したショットなので、パンも①の終わりから②へ続けて動かす
+  （パン開始位置(source_offset)・追う先(x_start→x_end)は目視で確認して決めた値）。
 - ③（f3-mechanism.mp4、8.04秒）：頭固定→追いつくの動きを見せるカット。
   0.5倍速にすると必要な尺（約13秒）を上回るので、0.5倍速にしたうえで
   必要な秒数だけ使う。頭が止まる瞬間・追いつく瞬間も見やすくなる一石二鳥。
@@ -72,6 +76,10 @@ def cuts_from_srt(srt_path):
 
 CUTS, _BOUNDS = cuts_from_srt(HERE / "s002-narration.srt")
 
+# ①②用のパン設定。ハトの頭が枠内に収まり続けるクロップ開始位置・移動先を
+# 実際に書き出したフレームを見ながら手で決めた（尺は決め打ちしない。動かす量だけ）。
+WALK_PAN = dict(source_offset=3.0, crop_w=1215, crop_h=2160, x_start=1842, x_end=928)
+
 def probe_duration(path):
     out = subprocess.run([FF, "-i", str(path)], capture_output=True, text=True).stderr
     m = re.search(r"Duration: (\d+):(\d+):([\d.]+)", out)
@@ -95,25 +103,43 @@ def render_segment(vid, dur, half_speed, src_start, out_path):
                "-vf", f"setpts={speed_pts}*PTS,{scale}", "-t", str(dur)]
     subprocess.run(cmd + ENC + [str(out_path)], check=True)
 
+def render_walk_pan(dur1, dur2, out1, out2):
+    """①②を、ハトの頭を追いかけるパンをかけながら連続して切り出す。
+
+    パンは①の頭から②の終わりまで一直線に動かす。①と②で別々に
+    ffmpeg を呼ぶので、②側は「①の分だけ既に動いた位置」から続きを計算する。
+    """
+    src = HERE / "f1-2-walk.mp4"
+    scale = f"scale={OW}:{OH}:flags=lanczos"
+    total = dur1 + dur2
+    rate = (WALK_PAN["x_start"] - WALK_PAN["x_end"]) / total  # 1秒あたりの移動量
+
+    def crop_expr(x0):
+        return f"crop={WALK_PAN['crop_w']}:{WALK_PAN['crop_h']}:x='{x0}-{rate}*t':y=0"
+
+    # ①: source_offset から dur1 秒
+    cmd1 = [FF, "-y", "-loglevel", "error", "-ss", str(WALK_PAN["source_offset"]), "-i", str(src),
+            "-t", str(dur1), "-vf", f"{crop_expr(WALK_PAN['x_start'])},{scale}"]
+    subprocess.run(cmd1 + ENC + [str(out1)], check=True)
+
+    # ②: source_offset + dur1 から dur2 秒。①の続きのパン位置から始める
+    x_at_dur1 = WALK_PAN["x_start"] - rate * dur1
+    cmd2 = [FF, "-y", "-loglevel", "error", "-ss", str(WALK_PAN["source_offset"] + dur1), "-i", str(src),
+            "-t", str(dur2), "-vf", f"{crop_expr(x_at_dur1)},{scale}"]
+    subprocess.run(cmd2 + ENC + [str(out2)], check=True)
+
 def main():
     print("カット秒数（s002-narration.srt から実測で算出）")
     for vid, dur, half_speed in CUTS:
         print(f"  {vid:18}{dur:6.2f}s" + ("  ← 0.5倍速" if half_speed else ""))
     print(f"  合計 {sum(d for _, d, _ in CUTS):.2f}s\n")
 
-    segs = []
-    # ①②は同じソースの連続したショットとして、①の終わりから②を続けて切り出す
-    cursor = 0.0
-    for i, (vid, dur, half_speed) in enumerate(CUTS, 1):
-        seg = HERE / f"_seg{i}.mp4"
-        src_start = None
-        if vid == "f1-2-walk.mp4":
-            src_start = cursor
-            cursor += dur
-        elif vid == "f5-eye.mp4":
-            src_start = 0.0
-        render_segment(vid, dur, half_speed, src_start, seg)
-        segs.append(seg)
+    segs = [HERE / f"_seg{i}.mp4" for i in range(1, len(CUTS) + 1)]
+    dur1, dur2 = CUTS[0][1], CUTS[1][1]
+    render_walk_pan(dur1, dur2, segs[0], segs[1])
+    for i, (vid, dur, half_speed) in enumerate(CUTS[2:], 3):
+        src_start = 0.0 if vid == "f5-eye.mp4" else None
+        render_segment(vid, dur, half_speed, src_start, segs[i - 1])
 
     lst = HERE / "_segs.txt"
     lst.write_text("".join(f"file '{s.name}'\n" for s in segs))
