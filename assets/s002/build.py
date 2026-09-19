@@ -28,12 +28,18 @@ s002は画像ではなく動画クリップ5本（フリー素材2本＋Kling生
 全カットの書き出し後、被写体そのものを上へ平行移動する後処理（reframe_up）を
 挟む。やり方：各カットの上端から y_off px を切り捨て、残り crop_h px を
 そのままキャンバス上端に詰める（拡大はしない＝ズームによる歪み・サイズ変化
-なし。単純な上シフト）。空いた下部 pad px は、同じ切り出し範囲をぼかして
-拡大した背景で埋める。
+なし。単純な上シフト）。空いた下部 pad px は黒背景で埋める（ぼかしではない）。
+
+下部の黒背景の高さ(REFRAME_PAD)は、実際に伸びているYouTube Shorts投稿の
+画面比率を実測して決めた：ナビバーを除いた画面のうち、動画本体は約40%、
+下部のキャプション・チャンネル登録・ハッシュタグ帯が約32%（1920px換算で
+約620px）を占めていた。これに合わせている。
 
 y_off は素材ごとに違う（被写体の画面内の高さが素材ごとに違うため）。
-実際に書き出したフレームを見ながら、被写体が y_off の切り捨てで
-頭を欠かさない範囲で、できるだけ大きい値を選んだ（UPSHIFT_YOFF）。
+下端の切り捨て位置は pad で固定される（OH-pad、y_offに依らず一定）ため、
+被写体の最下点がそれより下にある素材（①②のパンの脚先など）は下端が
+黒背景との境界で切れる。実際に書き出したフレームを見て、切れ方が
+不自然でないか確認すること。
 """
 import re, subprocess, pathlib, imageio_ffmpeg
 
@@ -41,9 +47,9 @@ HERE = pathlib.Path(__file__).parent
 FF   = imageio_ffmpeg.get_ffmpeg_exe()
 OW, OH, FPS = 1080, 1920, 30
 ENC  = "-c:v libx264 -preset medium -crf 20 -pix_fmt yuv420p -r 30 -an".split()
-REFRAME_PAD = 450  # 下に空ける高さ(px)。ボケた背景で埋める
+REFRAME_PAD = 620  # 下に空ける高さ(px)。黒背景で埋める（実測: 画面の約32%）
 # セグメント番号(1始まり) → 上端から切り捨てる高さ(px)。そのぶん被写体が上へ動く。
-UPSHIFT_YOFF = {1: 320, 2: 320, 3: 480, 4: 380, 5: 90}
+UPSHIFT_YOFF = {1: 350, 2: 350, 3: 550, 4: 420, 5: 90}
 
 # どの動画が、SRT の何枚目〜何枚目のカードに対応するか（1始まり・両端含む）。
 IMAGE_CARDS = [
@@ -144,21 +150,16 @@ def render_walk_pan(dur1, dur2, out1, out2):
     subprocess.run(cmd2 + ENC + [str(out2)], check=True)
 
 def reframe_up(path, y_off, pad=REFRAME_PAD):
-    """被写体を y_off px ぶん上へ平行移動し、空いた下部をボケた背景で埋める。
+    """被写体を y_off px ぶん上へ平行移動し、空いた下部を黒背景で埋める。
 
     上端から y_off px、下端から pad px を切り捨てた残り (crop_h px) を
     拡大せずキャンバス上端に詰める＝被写体がそのまま y_off px 分だけ上に動く。
-    下部の空きは、同じ切り出し範囲を引き伸ばしてぼかした背景で埋める。
+    下部の空きは黒で塗る（YouTube側のタイトル・チャンネル名帯を模した単色）。
     """
     crop_h = OH - y_off - pad
     tmp = path.with_name(path.stem + "_up.mp4")
-    filt = (
-        f"[0:v]crop={OW}:{crop_h}:0:{y_off},split=2[fg][fg2];"
-        f"[fg2]scale={OW}:{OH}:flags=lanczos,boxblur=30:2,eq=brightness=-0.2:saturation=0.8[bg];"
-        f"[bg][fg]overlay=0:0:shortest=1[v]"
-    )
-    cmd = [FF, "-y", "-loglevel", "error", "-i", str(path),
-           "-filter_complex", filt, "-map", "[v]"]
+    filt = f"crop={OW}:{crop_h}:0:{y_off},pad={OW}:{OH}:0:0:color=black"
+    cmd = [FF, "-y", "-loglevel", "error", "-i", str(path), "-vf", filt]
     subprocess.run(cmd + ENC + [str(tmp)], check=True)
     tmp.replace(path)
 
