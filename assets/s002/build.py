@@ -79,19 +79,21 @@ def probe_duration(path):
 
 def render_segment(vid, dur, half_speed, src_start, out_path):
     src = HERE / vid
+    scale = f"scale={OW}:{OH}:flags=lanczos"
     if half_speed:
         # 0.5倍速にしたうえで、必要な秒数だけ使う
         cmd = [FF, "-y", "-loglevel", "error", "-i", str(src),
-               "-filter:v", "setpts=2.0*PTS", "-t", str(dur)]
+               "-vf", f"setpts=2.0*PTS,{scale}", "-t", str(dur)]
     elif src_start is not None:
-        cmd = [FF, "-y", "-loglevel", "error", "-ss", str(src_start), "-i", str(src), "-t", str(dur)]
+        cmd = [FF, "-y", "-loglevel", "error", "-ss", str(src_start), "-i", str(src),
+               "-vf", scale, "-t", str(dur)]
     else:
         # 尺がわずかに足りない場合、過不足ぶんだけ速度を微調整して合わせる
         src_dur = probe_duration(src)
         speed_pts = dur / src_dur
         cmd = [FF, "-y", "-loglevel", "error", "-i", str(src),
-               "-filter:v", f"setpts={speed_pts}*PTS", "-t", str(dur)]
-    subprocess.run(cmd + ["-vf", f"scale={OW}:{OH}:flags=lanczos"] + ENC + [str(out_path)], check=True)
+               "-vf", f"setpts={speed_pts}*PTS,{scale}", "-t", str(dur)]
+    subprocess.run(cmd + ENC + [str(out_path)], check=True)
 
 def main():
     print("カット秒数（s002-narration.srt から実測で算出）")
