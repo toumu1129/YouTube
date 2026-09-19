@@ -92,18 +92,26 @@ def parse_script(path):
     return narration, readings, pauses
 
 
+BRACKETS = str.maketrans("", "", "「」『』")
+
+
 def apply_readings(text, readings):
     for hyoki, yomi in readings:
         text = text.replace(hyoki, yomi)
-    return text
+    # かぎ括弧はテロップの強調用の記号で、読み上げ対象ではない。
+    # VOICEVOXは閉じ括弧を句読点のように扱い、直後に余計な間を作るので、
+    # TTS入力からだけ取り除く（テロップ表示はそのまま「」を残す）。
+    return text.translate(BRACKETS)
 
 
 def find_pause_moras(query):
     """accent_phrases を順に見て、間(pause_mora)を持つものだけを順番に返す。
 
     VOICEVOXは「。」「、」ひとつにつき、直前のaccent_phraseにpause_moraを1つ持たせる。
-    そのため、この並びは 読点/句点で割った文節の並びと1対1で対応する
-    （tools/make_srt.py の clauses(text, min_clause=0) と同じ数・同じ順）。
+    そのため、この並びは 読点/句点で割った文節の「区切りどうし」の並びと1対1で対応する
+    （tools/make_srt.py の clauses(text, min_clause=0) と同じ順）。
+    最後の文節の後ろには区切りが無い（音声の終わりなので）ため、
+    間の数は文節の数より1つ少ない。
     """
     return [ap["pause_mora"] for ap in query["accent_phrases"] if ap.get("pause_mora")]
 
@@ -113,13 +121,13 @@ def apply_pauses(query, narration, pauses):
         return
     cs = split_clauses(narration, min_clause=0)
     pause_moras = find_pause_moras(query)
-    if len(cs) != len(pause_moras):
-        print(f"⚠ 間の指定を反映できない: 文節 {len(cs)} ≠ 間 {len(pause_moras)}")
+    if len(cs) - 1 != len(pause_moras):
+        print(f"⚠ 間の指定を反映できない: 文節の区切り {len(cs)-1} ≠ 間 {len(pause_moras)}")
         return
     for marker, delta in pauses:
-        idx = next((i for i, c in enumerate(cs) if marker in c), None)
+        idx = next((i for i, c in enumerate(cs[:-1]) if marker in c), None)
         if idx is None:
-            print(f"⚠ 間の指定「{marker}」が台本中に見つからない")
+            print(f"⚠ 間の指定「{marker}」が台本中に見つからない（最後の文節は対象外）")
             continue
         pause_moras[idx]["vowel_length"] += delta
         print(f"  間を調整: 「{cs[idx]}」の直後 {delta:+.2f}秒")
