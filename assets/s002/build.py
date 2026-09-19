@@ -25,11 +25,15 @@ s002は画像ではなく動画クリップ5本（フリー素材2本＋Kling生
 
 【上シフト】投稿プレビューで確認したところ、ハトの被写体とテロップが画面下部に
 偏り、YouTube側のUI（タイトル・アカウント名など）と被ってしまった。そのため
-全カットの書き出し後、下側 REFRAME_PAD px を切り落とし、そこにボケた背景を
-敷いて埋める後処理（reframe_up）を挟む。被写体は動かさず、単に画面下側の
-余白を確保するだけ（＝見た目には「映像全体を上に寄せた」ことになる）。
-切り落とし幅は5素材のうち被写体が最も下まで来るカット（①②のパン、頭が
-y≈1545付近まで来る）でも被写体を切らない値として、実測フレームを見て決めた。
+全カットの書き出し後、被写体そのものを上へ平行移動する後処理（reframe_up）を
+挟む。やり方：各カットの上端から y_off px を切り捨て、残り crop_h px を
+そのままキャンバス上端に詰める（拡大はしない＝ズームによる歪み・サイズ変化
+なし。単純な上シフト）。空いた下部 pad px は、同じ切り出し範囲をぼかして
+拡大した背景で埋める。
+
+y_off は素材ごとに違う（被写体の画面内の高さが素材ごとに違うため）。
+実際に書き出したフレームを見ながら、被写体が y_off の切り捨てで
+頭を欠かさない範囲で、できるだけ大きい値を選んだ（UPSHIFT_YOFF）。
 """
 import re, subprocess, pathlib, imageio_ffmpeg
 
@@ -37,7 +41,9 @@ HERE = pathlib.Path(__file__).parent
 FF   = imageio_ffmpeg.get_ffmpeg_exe()
 OW, OH, FPS = 1080, 1920, 30
 ENC  = "-c:v libx264 -preset medium -crf 20 -pix_fmt yuv420p -r 30 -an".split()
-REFRAME_PAD = 350  # 下から切り落として空ける高さ(px)。ボケた背景で埋める
+REFRAME_PAD = 450  # 下に空ける高さ(px)。ボケた背景で埋める
+# セグメント番号(1始まり) → 上端から切り捨てる高さ(px)。そのぶん被写体が上へ動く。
+UPSHIFT_YOFF = {1: 320, 2: 320, 3: 480, 4: 380, 5: 90}
 
 # どの動画が、SRT の何枚目〜何枚目のカードに対応するか（1始まり・両端含む）。
 IMAGE_CARDS = [
@@ -137,19 +143,18 @@ def render_walk_pan(dur1, dur2, out1, out2):
             "-t", str(dur2), "-vf", f"{crop_expr(x_at_dur1)},{scale}"]
     subprocess.run(cmd2 + ENC + [str(out2)], check=True)
 
-def reframe_up(path, pad=REFRAME_PAD):
-    """被写体を動かさず、下 pad px を切り落として空け、ボケた背景で埋める。
+def reframe_up(path, y_off, pad=REFRAME_PAD):
+    """被写体を y_off px ぶん上へ平行移動し、空いた下部をボケた背景で埋める。
 
-    前景＝元フレームの上 (OH-pad) px をそのまま使う（拡大しない＝被写体の
-    大きさも位置も変えない）。背景＝元フレーム全体をキャンバスサイズまで
-    引き伸ばしてぼかしたもの。前景を左上に重ねると、下側だけがボケた
-    背景になり、空いたように見える。
+    上端から y_off px、下端から pad px を切り捨てた残り (crop_h px) を
+    拡大せずキャンバス上端に詰める＝被写体がそのまま y_off px 分だけ上に動く。
+    下部の空きは、同じ切り出し範囲を引き伸ばしてぼかした背景で埋める。
     """
-    keep = OH - pad
+    crop_h = OH - y_off - pad
     tmp = path.with_name(path.stem + "_up.mp4")
     filt = (
-        f"[0:v]scale={OW}:{OH},boxblur=30:2,eq=brightness=-0.2:saturation=0.8[bg];"
-        f"[0:v]crop={OW}:{keep}:0:0[fg];"
+        f"[0:v]crop={OW}:{crop_h}:0:{y_off},split=2[fg][fg2];"
+        f"[fg2]scale={OW}:{OH}:flags=lanczos,boxblur=30:2,eq=brightness=-0.2:saturation=0.8[bg];"
         f"[bg][fg]overlay=0:0:shortest=1[v]"
     )
     cmd = [FF, "-y", "-loglevel", "error", "-i", str(path),
@@ -170,8 +175,8 @@ def main():
         src_start = 0.0 if vid == "f5-eye.mp4" else None
         render_segment(vid, dur, half_speed, src_start, segs[i - 1])
 
-    for s in segs:
-        reframe_up(s)
+    for i, s in enumerate(segs, 1):
+        reframe_up(s, UPSHIFT_YOFF[i])
 
     lst = HERE / "_segs.txt"
     lst.write_text("".join(f"file '{s.name}'\n" for s in segs))
