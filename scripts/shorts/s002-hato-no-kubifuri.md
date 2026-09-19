@@ -3,7 +3,7 @@ id: s002
 生き物: ドバト（カワラバト）
 フック型: C（常識の否定）
 尺: 30秒
-ステータス: 裏取り済
+ステータス: CapCut編集待ち
 ---
 
 # タイトル案
@@ -45,8 +45,11 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 
 | 用途 | 素材 | 出どころ | ライセンス | 取得日 |
 |---|---|---|---|---|
-| 歩くハト（スロー） | | 自分で撮影を推奨（公園で撮れる） | | |
-| 頭固定の図解 | | 自作イラスト | | |
+| ①② 歩くハト | `f1-2-walk.mp4` | [Pexels](https://www.pexels.com/video/a-pigeon-walking-on-a-cobblestone-street-11928573/)（Kmeel.com Videos） | 商用可・クレジット表記不要 | 2026-09-19 |
+| ③ 頭固定→体前進→頭追いつくの動き | `f3-mechanism.mp4` | 生成AI（Kling）。プロンプトはこのチャットのやりとり参照 | 生成物 | 2026-09-19 |
+| ④ 動く床（トレッドミル）の上のハト | `f4-treadmill.mp4` | 生成AI（Kling） | 生成物 | 2026-09-19 |
+| ⑤ ハトの目のアップ | `f5-eye.mp4` | [Pexels](https://www.pexels.com/video/close-up-of-pigeon-by-the-waterfront-2631160/)（Nino Souza） | 商用可・クレジット表記不要 | 2026-09-19 |
+| ナレーション | `s002-narration.wav` | VOICEVOX 青山龍星（ノーマル）。`tools/gen_narration.py` | 要クレジット（概要欄に記載） | 2026-09-19 |
 
 # 説明欄
 
@@ -61,6 +64,10 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 出典
 ・Frost, B. J. (1978) The Optokinetic Basis of Head-Bobbing in the Pigeon,
 　Journal of Experimental Biology 74(1): 187-195
+　https://journals.biologists.com/jeb/article/74/1/187/22520/
+（2026-09-16 参照）
+
+音声：VOICEVOX:青山龍星
 ━━━━━━━━━━
 
 ※わかっていないことは「わかっていない」と言う方針で作っています。
