@@ -8,6 +8,9 @@
   （テロップと完全一致させるため、この列の文字列を一切変えない）
 - 「# 読み指定」表の表記→読みの置換は、TTSに渡すテキストだけに適用する
   （画面のテロップ・SRT用テキストは元の表記のまま）
+- 「# 間の指定」表（任意）で、句読点の直前の文言を指定すると、
+  その直後の間（ポーズ）だけを秒数分だけ伸ばせる
+  （VOICEVOXは「。」「、」ごとに間を1つ生成するので、文節の一致で狙い撃ちする）
 - 出力は assets/sXXX/sXXX-narration.wav と、SRT生成用のテキスト
   assets/sXXX/sXXX-narration.txt（読み指定を反映しない、元のナレーション文）
 
@@ -23,6 +26,9 @@ import re
 import sys
 import urllib.parse
 import urllib.request
+
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+from make_srt import clauses as split_clauses  # noqa: E402
 
 ENGINE = "http://127.0.0.1:50021"
 SPEAKER = 13  # 青山龍星 ノーマル
@@ -41,7 +47,7 @@ def parse_table(lines, i):
 
 def parse_script(path):
     lines = path.read_text(encoding="utf-8").splitlines()
-    narration_rows, reading_rows = None, None
+    narration_rows, reading_rows, pause_rows = None, None, None
     i = 0
     while i < len(lines):
         line = lines[i]
@@ -55,6 +61,11 @@ def parse_script(path):
             while not lines[j].strip().startswith("|"):
                 j += 1
             reading_rows, _ = parse_table(lines, j)
+        elif line.strip() == "# 間の指定":
+            j = i + 1
+            while not lines[j].strip().startswith("|"):
+                j += 1
+            pause_rows, _ = parse_table(lines, j)
         i += 1
 
     if not narration_rows:
@@ -71,7 +82,14 @@ def parse_script(path):
                 readings.append((hyoki, yomi))
     # 長い表記から先に置換する（短い表記が長い表記の一部を壊すのを防ぐ）
     readings.sort(key=lambda p: -len(p[0]))
-    return narration, readings
+
+    pauses = []
+    if pause_rows:
+        for row in pause_rows:
+            marker, delta = row[0], row[1]
+            if marker and delta:
+                pauses.append((marker, float(delta)))
+    return narration, readings, pauses
 
 
 def apply_readings(text, readings):
@@ -80,7 +98,34 @@ def apply_readings(text, readings):
     return text
 
 
-def synthesize(text, speaker=SPEAKER):
+def find_pause_moras(query):
+    """accent_phrases を順に見て、間(pause_mora)を持つものだけを順番に返す。
+
+    VOICEVOXは「。」「、」ひとつにつき、直前のaccent_phraseにpause_moraを1つ持たせる。
+    そのため、この並びは 読点/句点で割った文節の並びと1対1で対応する
+    （tools/make_srt.py の clauses(text, min_clause=0) と同じ数・同じ順）。
+    """
+    return [ap["pause_mora"] for ap in query["accent_phrases"] if ap.get("pause_mora")]
+
+
+def apply_pauses(query, narration, pauses):
+    if not pauses:
+        return
+    cs = split_clauses(narration, min_clause=0)
+    pause_moras = find_pause_moras(query)
+    if len(cs) != len(pause_moras):
+        print(f"⚠ 間の指定を反映できない: 文節 {len(cs)} ≠ 間 {len(pause_moras)}")
+        return
+    for marker, delta in pauses:
+        idx = next((i for i, c in enumerate(cs) if marker in c), None)
+        if idx is None:
+            print(f"⚠ 間の指定「{marker}」が台本中に見つからない")
+            continue
+        pause_moras[idx]["vowel_length"] += delta
+        print(f"  間を調整: 「{cs[idx]}」の直後 {delta:+.2f}秒")
+
+
+def synthesize(text, speaker=SPEAKER, narration=None, pauses=None):
     def post(path, params, body=None):
         qs = "&".join(f"{k}={urllib.parse.quote(str(v))}" for k, v in params.items())
         req = urllib.request.Request(f"{ENGINE}{path}?{qs}", method="POST")
@@ -92,6 +137,8 @@ def synthesize(text, speaker=SPEAKER):
             return res.read()
 
     query = json.loads(post("/audio_query", {"text": text, "speaker": speaker}))
+    if pauses:
+        apply_pauses(query, narration, pauses)
     wav = post("/synthesis", {"speaker": speaker}, body=query)
     return wav
 
@@ -105,14 +152,14 @@ def main():
     out_dir = pathlib.Path("assets") / sid
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    narration, readings = parse_script(script_path)
+    narration, readings, pauses = parse_script(script_path)
     tts_text = apply_readings(narration, readings)
 
     print(f"台本: {narration}")
     if readings:
         print(f"読み置換後(TTS入力のみ): {tts_text}")
 
-    wav_bytes = synthesize(tts_text)
+    wav_bytes = synthesize(tts_text, narration=narration, pauses=pauses)
 
     wav_path = out_dir / f"{sid}-narration.wav"
     txt_path = out_dir / f"{sid}-narration.txt"
