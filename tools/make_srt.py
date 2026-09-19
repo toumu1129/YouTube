@@ -131,7 +131,9 @@ def main():
     lines = []
     for i, (c, (a, b)) in enumerate(pairs):
         end = (pairs[i+1][1][0] - TAIL_GAP) if i+1 < len(pairs) else (dur or b)
-        lines.append(f"{i+1}\n{ts(a)} --> {ts(max(end, a+0.4))}\n{wrap(c)}\n")
+        # 句読点は改行位置を決めるためだけに使い、実際の表示には出さない
+        display = wrap(c).replace("、", "").replace("。", "")
+        lines.append(f"{i+1}\n{ts(a)} --> {ts(max(end, a+0.4))}\n{display}\n")
     out.write_text("\n".join(lines), encoding="utf-8")
 
     print(f"\n{out}  ({len(pairs)}枚)")
