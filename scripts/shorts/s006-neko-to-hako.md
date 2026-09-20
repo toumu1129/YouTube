@@ -3,7 +3,7 @@ id: s006
 生き物: イエネコ
 フック型: B（なぜ疑問）
 尺: 30秒
-ステータス: 裏取り済
+ステータス: CapCut編集待ち
 ---
 
 # タイトル案
@@ -50,8 +50,12 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 
 | 用途 | 素材 | 出どころ | ライセンス | 取得日 |
 |---|---|---|---|---|
-| 箱のネコ | | 自宅のネコ or Pexels | | |
-| 実験の図解 | | 自作イラスト | | |
+| ① 箱に収まるネコ | `f1-settled-cropped.jpg` | [Pexels](https://www.pexels.com/photo/white-and-orange-cat-in-brown-cardboard-box-7726316/)（Arina Krasnikova） | 商用可・クレジット表記不要 | 2026-09-20 |
+| ② 箱から覗くネコ | `f2-peek.mp4` | [Pexels](https://www.pexels.com/video/a-cat-peeking-out-of-a-black-box-15769301/)（Lille Margrave） | 商用可・クレジット表記不要 | 2026-09-20 |
+| ③ 図解：2組の比較 | `f3-diagram.jpg` | 自作（`gen_diagram.py`でPIL直接描画。AI画像生成は文字精度が低く不使用） | 自作 | 2026-09-20 |
+| ④ 物陰のネコ | `f4-peer-cropped.jpg` | [Pexels](https://www.pexels.com/photo/an-orange-cat-in-cardboard-box-peeping-from-a-hole-9823020/)（Nastya） | 商用可・クレジット表記不要 | 2026-09-20 |
+| ⑤ 箱の中のネコ | `f5-refuge-cropped.jpg` | [Pexels](https://www.pexels.com/photo/portrait-of-a-little-cat-19040485/)（Juliane Monari Fotografia） | 商用可・クレジット表記不要 | 2026-09-20 |
+| ナレーション | `s006-narration.wav` | VOICEVOX 青山龍星（ノーマル）。`tools/gen_narration.py` | 要クレジット（概要欄に記載） | 2026-09-20 |
 
 # 説明欄
 
@@ -66,6 +70,10 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 出典
 ・Vinke, Godijn & van der Leij (2014) Will a hiding box provide stress reduction
 　for shelter cats?, Applied Animal Behaviour Science 160: 86-93
+　https://doi.org/10.1016/j.applanim.2014.09.002
+（2026-09-16 参照）
+
+音声：VOICEVOX:青山龍星
 ━━━━━━━━━━
 
 ※わかっていないことは「わかっていない」と言う方針で作っています。
