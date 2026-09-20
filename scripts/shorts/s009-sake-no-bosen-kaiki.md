@@ -3,7 +3,7 @@ id: s009
 生き物: シロザケ
 フック型: B（なぜ疑問）
 尺: 30秒
-ステータス: 裏取り済
+ステータス: CapCut編集待ち
 ---
 
 # タイトル案
@@ -60,8 +60,16 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 
 | 用途 | 素材 | 出どころ | ライセンス | 取得日 |
 |---|---|---|---|---|
-| 遡上するサケ | | Pexels / 公的機関の公開素材 | | |
-| 図解 | | 自作イラスト | | |
+| ① 遡上するサケ | `f1.jpg` | 生成AI（画像）。プロンプトは`prompts.json`参照 | 生成物 | 2026-09-20 |
+| ② 海のサケ | `f2.jpg` | 生成AI（画像）。プロンプトは`prompts.json`参照 | 生成物 | 2026-09-20 |
+| ③ 図解：稚魚→海→遡上 | `f3.jpg` | 生成AI（画像）。プロンプトは`prompts.json`参照 | 生成物 | 2026-09-20 |
+| ④ 図解：実験 | `f4.jpg` | 生成AI（画像）。プロンプトは`prompts.json`参照 | 生成物 | 2026-09-20 |
+| ⑤ 川面 | `f5-river.mp4` | [Pexels](https://www.pexels.com/video/calm-water-5120396/)（Mike Stranks） | 商用可・クレジット表記不要 | 2026-09-20 |
+| ナレーション | `s009-narration.wav` | VOICEVOX 青山龍星（ノーマル）。`tools/gen_narration.py` | 要クレジット（概要欄に記載） | 2026-09-20 |
+
+> ①②③④は「はっきり写った実写」がPexels/Pixabayで見つからなかったため
+> （唯一見つかった実写は濁った滝の遠景に小さく写る不鮮明なものと、
+> 960x540の低解像度な水族館映像のみ）、生成AIのイラストに切り替えた。
 
 # 説明欄
 
@@ -76,8 +84,16 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 出典
 ・Hasler & Wisby (1951) Discrimination of stream odors by fishes,
 　American Naturalist 85: 223-238
+　（2026-09-16 参照）
 ・Wisby & Hasler (1954) Effect of olfactory occlusion on migrating silver salmon,
 　J. Fish. Res. Board Can. 11: 472-478
+　（2026-09-16 参照）
+・Yamamoto et al. (2013) Olfactory Homing of Chum Salmon to Stable Compositions
+　of Amino Acids in Natal Stream Water, Zoological Science 30(8): 607-612
+　https://bioone.org/journals/zoological-science/volume-30/issue-8/zsj.30.607/
+　（2026-09-20 参照。匂いの正体をアミノ酸組成比とする説は仮説段階）
+
+音声：VOICEVOX:青山龍星
 ━━━━━━━━━━
 
 ※わかっていないことは「わかっていない」と言う方針で作っています。
