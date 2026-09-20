@@ -7,12 +7,15 @@
 `s006-narration.srt`（tools/make_srt.py が音声の無音を実測して作ったもの）から逆算する。
 理由は s020/build.py の冒頭コメント、および assets/s020/README.md を参照。
 
-s006は静止画4枚（f1/f4/f5-cropped.jpg、f3-diagram.jpgはgen_diagram.pyで作成）＋
+s006は静止画4枚（f1/f4/f5-cropped.jpg、f3-diagram.jpg）＋
 動画1本（f2-peek.mp4、覗くネコ）の構成。
 - f1/f4/f5は元がそれぞれ別アスペクト比の実写なので、事前に crop_photos.py で
   1080x1920へ中央基準クロップ済み（このbuild.pyでは追加のスケールをしない）。
-- f3-diagram.jpg は実写がない「2群比較」の説明用に、PILで直接描いた図解
-  （gen_diagram.py。AI画像生成は文字精度が低く使わない＝s004以来の方針）。
+- f3-diagram.jpg は実写がない「2群比較（箱ありは穏やか／箱なしは緊張）」の
+  説明用の図解。最初はPILで直接描いた簡易図（時系列グラフ）だったが、
+  もっと絵として伝わるものにしたいとのことで、他のAIモデル（画像生成）で
+  作り直したものに差し替えた。文字・数字は入れず（AI生成は文字精度が低い）、
+  下部はtelop用に空けるようプロンプトで指定済み。1080x1920に中央クロップ済み。
 - f2-peek.mp4（5.21秒）は必要な秒数だけ先頭から使う。
 """
 import re, subprocess, pathlib, imageio_ffmpeg
@@ -25,10 +28,10 @@ ENC  = "-c:v libx264 -preset medium -crf 20 -pix_fmt yuv420p -r 30 -an".split()
 # どの素材が、SRT の何枚目〜何枚目のカードに対応するか（1始まり・両端含む）。
 IMAGE_CARDS = [
     ("f1-settled-cropped.jpg", 1,  2,  "image"),  # ①ネコが箱に入るのは、狭いからではありません。
-    ("f2-peek.mp4",            3,  5,  "video"),  # ②落ち着くから。では、なぜ落ち着くのでしょう。
+    ("f2-peek.mp4",            3,  5,  "video"),  # ②では、なぜか？それは落ち着くからです。
     ("f3-diagram.jpg",         6,  9,  "image"),  # ③保護施設の実験…7日早く安定しました。
     ("f4-peer-cropped.jpg",    10, 13, "image"),  # ④ネコは追いつめられたとき…その対処法そのもの。
-    ("f5-refuge-cropped.jpg",  14, 15, "image"),  # ⑤箱は、避難所です。
+    ("f5-refuge-cropped.jpg",  14, 14, "image"),  # ⑤箱はネコにとっての避難所です。
 ]
 
 def srt_cards(path):
