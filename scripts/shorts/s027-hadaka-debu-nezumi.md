@@ -60,9 +60,9 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 |---|---|---|---|---|
 | ① ハダカデバネズミのアップ | `f1.jpg` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Nake_Mole_Rat.jpg)（John Trainor） | CC BY 2.0・要クレジット表記 | 2026-09-21 |
 | ② 巣穴での群れの様子 | `f2.jpg` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Naked_Mole_Rats.jpg)（Edward Russell、ディズニー・アニマルキングダム） | CC BY 2.0・要クレジット表記 | 2026-09-21 |
-| ③前半 図解：死亡率のグラフ | `f3.jpg` | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | 2026-09-21 |
+| ③前半 図解：死亡率の比較グラフ | `f3.jpg` | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | 2026-09-21 |
 | ③後半 図解：細胞とヒアルロン酸 | `f3b.jpg` | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | 2026-09-21 |
-| ④ 研究・観察のイメージ | `f4.mp4` | [Pexels](https://www.pexels.com/video/young-scientist-working-in-laboratory-31575747/)（Allan González） | 商用可・クレジット表記不要 | 2026-09-21 |
+| ④ 研究対象であることを示すマーカー | `f4.jpg` | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | 2026-09-21 |
 | ⑤ ハダカデバネズミのアップ | `f5.jpg` | クレジット不要サイト（詳細不明） | 商用可・クレジット表記不要 | 2026-09-21 |
 
 # 説明欄
