@@ -60,7 +60,7 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 | 用途 | 素材 | 出どころ | ライセンス | 取得日 |
 |---|---|---|---|---|
 | ① ゾウの全身 | `f1.mp4` | [Pexels](https://www.pexels.com/video/majestic-elephant-walking-through-african-savannah-34972915/)（Dany Luna） | 商用可・クレジット表記不要 | 2026-09-21 |
-| ② 歩く／移動するゾウ | `f2.mp4` | [Pexels](https://www.pexels.com/video/footage-of-an-elephant-855538/)（Pixabay） | 商用可・クレジット表記不要 | 2026-09-21 |
+| ② 歩く／移動するゾウ | `f2.mp4` | [Pexels](https://www.pexels.com/video/african-elephant-walking-in-lush-greenery-30418797/)（leader k） | 商用可・クレジット表記不要 | 2026-09-21 |
 | ③ 図解：脚の骨格構造 | `f3.jpg` | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | 2026-09-21 |
 | ④ 図解：着地の衝撃イメージ | `f4.jpg` | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | 2026-09-21 |
 | ⑤ ゾウの脚のアップ | `f5.mp4` | [Pexels](https://www.pexels.com/video/elephants-20571217/)（Mayra Marro） | 商用可・クレジット表記不要 | 2026-09-21 |
