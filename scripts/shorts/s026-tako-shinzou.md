@@ -3,7 +3,7 @@ id: s026
 生き物: マダコ（Octopus vulgaris）
 フック型: E（意外な対戦）
 尺: 30秒
-ステータス: 裏取り済
+ステータス: CapCut編集待ち
 ---
 
 # タイトル案
@@ -66,8 +66,8 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 |---|---|---|---|---|
 | ① タコのアップ | `f1.mp4` | [Pexels](https://www.pexels.com/video/underwater-footage-of-an-octopus-swimming-in-the-ocean-15623347/)（Jozef Papp、動画クリップ） | 商用可・クレジット表記不要 | 2026-09-21 |
 | ② タコの全身 | `f2.jpg` | [Pexels](https://www.pexels.com/photo/octopus-in-the-water-near-the-coral-reefs-5986729/)（annantonova、バルセロナ水族館） | 商用可・クレジット表記不要 | 2026-09-21 |
-| ③ 図解：鉄と銅、血の色の違い | | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | — |
-| ④ 図解：ジェット推進と心臓 | | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | — |
+| ③ 図解：3つの心臓（X線風の発光オーバーレイ） | `f3.jpg` | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | 2026-09-21 |
+| ④ 図解：ジェット推進と心臓 | `f4.jpg` | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | 2026-09-21 |
 | ⑤ 岩陰で休むタコ | `f5.jpg` | [Pexels](https://www.pexels.com/photo/close-up-of-octopus-on-shore-18573919/)（Christophe RASCLE） | 商用可・クレジット表記不要 | 2026-09-21 |
 
 # 説明欄
