@@ -64,11 +64,11 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 
 | 用途 | 素材 | 出どころ | ライセンス | 取得日 |
 |---|---|---|---|---|
-| ① タコのアップ | | Pexels等 | | |
-| ② タコの全身 | | Pexels等 | | |
-| ③ 図解：鉄と銅、血の色の違い | | 生成AI or 自作イラスト | | |
-| ④ 図解：ジェット推進と心臓 | | 生成AI or 自作イラスト | | |
-| ⑤ 岩陰で休むタコ | | Pexels等 | | |
+| ① タコのアップ | `f1.jpg` | [Pexels](https://www.pexels.com/video/underwater-footage-of-an-octopus-swimming-in-the-ocean-15623347/)（Jozef Papp、動画から切り出し） | 商用可・クレジット表記不要 | 2026-09-21 |
+| ② タコの全身 | `f2.jpg` | [Pexels](https://www.pexels.com/photo/orange-octopus-on-green-stone-2902860/)（Vlad Vasnetsov） | 商用可・クレジット表記不要 | 2026-09-21 |
+| ③ 図解：鉄と銅、血の色の違い | | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | — |
+| ④ 図解：ジェット推進と心臓 | | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | — |
+| ⑤ 岩陰で休むタコ | `f5.jpg` | [Pexels](https://www.pexels.com/photo/close-up-of-octopus-on-shore-18573919/)（Christophe RASCLE） | 商用可・クレジット表記不要 | 2026-09-21 |
 
 # 説明欄
 
