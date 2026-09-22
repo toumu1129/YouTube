@@ -60,10 +60,10 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 | 用途 | 素材 | 出どころ | ライセンス | 取得日 |
 |---|---|---|---|---|
 | ① ゾウの群れ | `f1.mp4` | [Pexels](https://www.pexels.com/video/a-herd-of-elephants-in-the-wild-11760790/)（Roman Odintsov） | 商用可・クレジット表記不要 | 2026-09-22 |
-| ② 鳴いているゾウのアップ | `f2.jpg` | [Pexels](https://www.pexels.com/photo/close-up-photo-of-elephant-750538/)（Adriaan Greyling） | 商用可・クレジット表記不要 | 2026-09-22 |
+| ② 鳴いているゾウのアップ | `f2.jpg` | [Pexels](https://www.pexels.com/photo/elephant-close-up-19813246/)（Frans van Heerden） | 商用可・クレジット表記不要 | 2026-09-22 |
 | ③ 図解：音声波形とAI解析のイメージ | `f3.jpg` | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | 2026-09-22 |
 | ④ 親子のゾウ | `f4.jpg` | [Pexels](https://www.pexels.com/photo/elephant-with-baby-elephants-in-the-forest-16591291/)（Mehmet Turgut Kirkgoz） | 商用可・クレジット表記不要 | 2026-09-22 |
-| ⑤ ゾウの群れ全体 | `f5.mp4` | [Pexels](https://www.pexels.com/video/a-herd-of-elephants-in-the-wild-11760790/)（Roman Odintsov、①と同一動画の別区間） | 商用可・クレジット表記不要 | 2026-09-22 |
+| ⑤ ゾウの群れ全体 | `f5.jpg` | [Pexels](https://www.pexels.com/photo/elephant-family-on-savannah-26924191/)（Kévin et Laurianne Langlais） | 商用可・クレジット表記不要 | 2026-09-22 |
 
 # 説明欄
 
