@@ -3,7 +3,7 @@ id: s032
 生き物: トウブキツネリス（Sciurus niger, Eastern fox squirrel）
 フック型: A（感情ラベル・意外性）
 尺: 30秒
-ステータス: CapCut編集待ち
+ステータス: 投稿済み
 ---
 
 # タイトル案
