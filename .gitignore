@@ -26,3 +26,6 @@ __pycache__/
 *api_key*
 *_key.txt
 secrets/
+
+# tools/youtube_report.py が作る生データ。API再実行でいつでも作り直せる。
+docs/_youtube_stats_raw.json
