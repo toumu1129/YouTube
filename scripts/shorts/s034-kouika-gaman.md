@@ -68,11 +68,11 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 
 | 用途 | 素材 | 出どころ | ライセンス | 取得日 |
 |---|---|---|---|---|
-| ① コウイカのアップ | | Pexels等 | | |
+| ① コウイカのアップ | `f1.jpg` | [Pexels](https://www.pexels.com/photo/mesmerizing-close-up-of-a-cuttlefish-underwater-32841309/)（Esteban Carriazo） | 商用可・クレジット表記不要 | 2026-09-29 |
 | ② 図解：2つの餌を見せる実験のイメージ | | 生成AI or 自作イラスト | | |
 | ③ 図解：じっと待つコウイカ | | 生成AI or 自作イラスト | | |
 | ④ 図解：学習テストのイメージ | | 生成AI or 自作イラスト | | |
-| ⑤ 泳ぐコウイカのアップ | | Pexels等 | | |
+| ⑤ 泳ぐコウイカのアップ | `f5.jpg` | [Pexels](https://www.pexels.com/photo/close-up-shot-of-a-cuttlefish-1200287/)（Pawel Kalisinski） | 商用可・クレジット表記不要 | 2026-09-29 |
 
 # 説明欄
 
