@@ -17,7 +17,9 @@ from PIL import Image, ImageDraw, ImageFont
 
 HERE = pathlib.Path(__file__).parent
 SRC_URL = "https://images.pexels.com/photos/32841309/pexels-photo-32841309.jpeg?auto=compress&cs=tinysrgb&w=3840"
-FONT_PATH = "/usr/share/fonts/opentype/ipafont-gothic/ipag.ttf"
+# M PLUS Rounded 1c Black（Google Fonts, OFL）。丸みのある極太ゴシックで、
+# 小さい表示でも視認性が高い、日本語YouTubeサムネイルの定番スタイル。
+FONT_PATH = str(HERE.parent / "fonts" / "MPLUSRounded1c-Black.ttf")
 W, H = 1080, 1920
 LINES = ["好物のために", "我慢する、、、"]
 
@@ -48,7 +50,9 @@ def main():
     import urllib.request
     src_path = HERE / "_thumb_src.jpg"
     if not src_path.exists():
-        urllib.request.urlretrieve(SRC_URL, src_path)
+        req = urllib.request.Request(SRC_URL, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req) as resp, open(src_path, "wb") as f:
+            f.write(resp.read())
 
     im = Image.open(src_path).convert("RGB")
     im = cover_crop(im, W, H, x_anchor=0.42, y_anchor=0.48)

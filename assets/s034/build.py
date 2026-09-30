@@ -14,11 +14,8 @@ s034は静止画5枚（f1〜f5.jpg）の構成。
   テストのイメージ）は、実験の再現映像が存在しないため生成AIで作成（プロンプト
   はこのチャットのやりとり参照）。1080x1920で生成済み。
 
-【サムネイル対策】YouTube Shortsはサムネイル画像を別添付できず、先頭フレームが
-サムネイルになる。そこでthumb.jpg（f1.jpgの元写真に「好物のために／我慢する、、、」
-の文字を合成したもの。make_thumbnail.py参照）をTHUMBNAIL_DUR秒だけ動画の先頭に
-挿入し、ナレーション音声はその分だけ後ろにずらして合成する（下記main関数と
-このあとの音声合成コマンドを参照）。
+サムネイル画像（thumb.jpg、make_thumbnail.py参照）は動画本編には組み込まない。
+ユーザーが別途CapCut側でサムネイルとして扱う運用のため、単体の画像として渡す。
 """
 import re, subprocess, pathlib, imageio_ffmpeg
 
@@ -26,9 +23,6 @@ HERE = pathlib.Path(__file__).parent
 FF   = imageio_ffmpeg.get_ffmpeg_exe()
 OW, OH, FPS = 1080, 1920, 30
 ENC  = "-c:v libx264 -preset medium -crf 20 -pix_fmt yuv420p -r 30 -an".split()
-
-THUMBNAIL = "thumb.jpg"
-THUMBNAIL_DUR = 0.6
 
 # どの素材が、SRT の何枚目〜何枚目のカードに対応するか（1始まり・両端含む）。
 IMAGE_CARDS = [
@@ -90,9 +84,7 @@ def main():
         print(f"  {src:10}{dur:6.2f}s  ({kind})")
     print(f"  合計 {sum(d for _, d, _ in CUTS):.2f}s\n")
 
-    thumb_seg = HERE / "_seg_thumb.mp4"
-    render_cut(THUMBNAIL, THUMBNAIL_DUR, "image", thumb_seg)
-    segs = [thumb_seg]
+    segs = []
     for i, (src, dur, kind) in enumerate(CUTS, 1):
         seg = HERE / f"_seg{i}.mp4"
         render_cut(src, dur, kind, seg)
@@ -102,8 +94,7 @@ def main():
     lst.write_text("".join(f"file '{s.name}'\n" for s in segs))
     subprocess.run([FF, "-y", "-loglevel", "error", "-f", "concat", "-safe", "0",
                     "-i", str(lst), "-c", "copy", str(HERE / "s034.mp4")], check=True)
-    print(f"s034.mp4（先頭{THUMBNAIL_DUR}秒はサムネイル用カード。"
-          f"音声を合成する際は narration を {int(THUMBNAIL_DUR*1000)}ms 遅らせること）")
+    print("s034.mp4")
 
 if __name__ == "__main__":
     main()
