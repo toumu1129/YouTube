@@ -3,7 +3,7 @@ id: s034
 生き物: コウイカ（Sepia officinalis, European common cuttlefish）
 フック型: E（意外な対戦／常識の否定）
 尺: 30秒
-ステータス: CapCut編集待ち
+ステータス: 投稿済み
 ---
 
 # タイトル案
