@@ -73,11 +73,11 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 
 | 用途 | 素材 | 出どころ | ライセンス | 取得日 |
 |---|---|---|---|---|
-| ① キタゾウアザラシのアップ | | Pexels等 | | |
-| ② 図解：頭に脳波計を付けたアザラシ | | 生成AI or 自作イラスト | | |
-| ③ 図解：らせんを描いて沈むアザラシ | | 生成AI or 自作イラスト | | |
-| ④ 図解：1日の睡眠時間のイメージ | | 生成AI or 自作イラスト | | |
-| ⑤ 泳ぐキタゾウアザラシのアップ | | Pexels等 | | |
+| ① キタゾウアザラシのアップ | `f1.jpg` | [Pexels](https://www.pexels.com/photo/a-northern-elephant-seal-enjoys-a-sandy-nap-on-san-simeon-beach-california-33945655/)（Richard Block、San Simeon, CAで撮影。北部ゾウアザラシと確認） | 商用可・クレジット表記不要 | 2026-10-12 |
+| ② 図解：頭に脳波計を付けたアザラシ | `f2.jpg`（生成予定） | 生成AI | 生成物 | |
+| ③ 図解：らせんを描いて沈むアザラシ | `f3.jpg`（生成予定） | 生成AI | 生成物 | |
+| ④ 図解：1日の睡眠時間のイメージ | `f4.jpg`（生成予定） | 生成AI | 生成物 | |
+| ⑤ 泳ぐキタゾウアザラシのアップ | `f5.jpg` | [Pexels](https://www.pexels.com/photo/a-northern-elephant-seal-relaxing-on-the-sandy-beach-of-san-simeon-california-usa-33945710/)（Richard Block、San Simeon, CAで撮影。北部ゾウアザラシと確認。実際は砂浜で眠る写真だが、テーマが「眠り」のため採用） | 商用可・クレジット表記不要 | 2026-10-12 |
 
 # 説明欄
 
