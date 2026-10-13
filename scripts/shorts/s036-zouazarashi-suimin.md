@@ -2,8 +2,8 @@
 id: s036
 生き物: キタゾウアザラシ（Mirounga angustirostris, Northern elephant seal）
 フック型: E（意外な事実／常識の否定）
-尺: 30秒
-ステータス: 裏取り済
+尺: 31.2秒
+ステータス: 動画完成
 投稿日:
 ---
 
