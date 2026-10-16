@@ -6,6 +6,8 @@
 
 ユーザーが実際にCapCutで編集した動画3本（カマキリ・ミツバチ・ゾウアザラシ）
 を解析して決めたスタイル:
+  - フォント: BIZ UDGothic Bold（学術的な印象にしたいという要望で、
+    元のRounded Mplus 1c Blackから変更。assets/fonts/BIZUDGothic-Bold.ttf）
   - 白文字＋太い黒フチ、強調語だけ黄色（実測 RGB 235,203,15 相当）
   - テロップの垂直方向の「中心」が、1行でも2行でも常に同じ位置に来る
     （画面下からの実測: 1行の中心1458.5px、2行の中心1460.5px、ほぼ一致）
@@ -27,7 +29,7 @@ import sys
 
 OW, OH = 1080, 1920
 POS_X, POS_Y = OW // 2, 1460   # テロップの中心（実測値）
-FONT_NAME = "Rounded Mplus 1c Black"
+FONT_NAME = "BIZ UDGothic"
 FONT_SIZE = 78
 OUTLINE = 7
 HIGHLIGHT_BGR = "14CCFF"   # ASS は &HBBGGRR&。RGB(255,204,20) 相当の黄色
