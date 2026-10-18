@@ -64,19 +64,23 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 
 | 用途 | 素材 | 出どころ | ライセンス | 取得日 |
 |---|---|---|---|---|
-| ① テッポウウオのアップ | | Pexels等 | | |
-| ② 図解：画面の顔写真に水を吐くテッポウウオ | | 生成AI or 自作イラスト | | |
-| ③ 図解：並んだ顔写真の中から選ぶイメージ | | 生成AI or 自作イラスト | | |
-| ④ 図解：条件をそろえた顔写真のイメージ | | 生成AI or 自作イラスト | | |
-| ⑤ 泳ぐテッポウウオのアップ | | Pexels等 | | |
+| ① テッポウウオのアップ | `f1.jpg` | [Pexels](https://www.pexels.com/photo/detailed-view-of-archer-fish-swimming-in-an-aquarium-with-blurred-background-36180419/)（Jeffry Surianto） | 商用可・クレジット表記不要 | 2026-10-18 |
+| ② 図解：画面の顔写真に水を吐くテッポウウオ | `f2.jpg`（生成予定） | 生成AI | 生成物 | |
+| ③ 図解：並んだ顔写真の中から選ぶイメージ | `f3.jpg`（生成予定） | 生成AI | 生成物 | |
+| ④ 図解：条件をそろえた顔写真のイメージ | `f4.jpg`（生成予定） | 生成AI | 生成物 | |
+| ⑤ 泳ぐテッポウウオのアップ | `f5.mp4` | [Pexels](https://www.pexels.com/video/archerfish-swimming-gracefully-in-aquarium-34945019/)（Magda Ehlers） | 商用可・クレジット表記不要 | 2026-10-18 |
 
 # 画像生成プロンプト
 
-ふさわしい実写素材が見つからなかった分だけ埋める。
+ふさわしい実写素材が見つからなかった分だけ埋める。実際に生成する際は
+`tools/gen_images.py`（OpenAI連携が整い次第）か、手動でChatGPT等に
+下記プロンプトを渡して画像を作り、assets/s037/に保存する。
 
 | ファイル名 | プロンプト |
 |---|---|
-| | |
+| f2.jpg | A photorealistic photograph looking up from inside an aquarium toward the water surface, where a small LCD-style screen is mounted just above the waterline showing two simple black-and-white human face portraits side by side. A silver archerfish with dark vertical blotches is aiming upward, with a thin jet of water visible shooting from its mouth toward one of the two face images. Natural aquarium lighting, documentary wildlife photography style. Vertical 9:16 composition. No illustration style, no diagrams, no text/numbers, no multiple panels — a single real-looking photograph. Keep the bottom 15% of the frame darker/plain for a caption to be added later. |
+| f3.jpg | A photorealistic close-up photograph of a computer monitor screen displaying a grid of many different black-and-white human face portrait photos arranged in rows, viewed at a slight angle as if seen through shallow water with faint ripple distortion. Documentary/scientific photography style, natural lighting, shallow depth of field with the center faces in sharp focus and the edges slightly soft. Vertical 9:16 composition. No illustration style, no text/numbers overlaid, no multiple separate panels — a single real-looking photograph only. Keep the bottom 15% of the frame darker/plain for a caption to be added later. |
+| f4.jpg | A photorealistic close-up photograph of a set of grayscale human face portrait photos laid out in a neat row, each face masked within an identical oval shape so the head outline looks the same, viewed through shallow aquarium water with faint ripple distortion. Muted, even lighting with no color, documentary/scientific photography style. Vertical 9:16 composition. No illustration style, no text/numbers overlaid, no multiple separate panels — a single real-looking photograph only. Keep the bottom 15% of the frame darker/plain for a caption to be added later. |
 
 # 説明欄
 
