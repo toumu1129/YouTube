@@ -1,0 +1,30 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,BIZ UDGothic,78,&H00FFFFFF&,&H000000FF&,&H00000000&,&H00000000&,1,0,0,0,100,100,0,0,1,7,0,5,60,60,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.21,Default,,0,0,0,,{\an5\pos(540,1460)}テッポウウオは
+Dialogue: 0,0:00:01.27,0:00:03.18,Default,,0,0,0,,{\an5\pos(540,1460)}{\c&H14CCFF&}人間の顔{\c&HFFFFFF&}を\N見分けることが
+Dialogue: 0,0:00:03.18,0:00:03.81,Default,,0,0,0,,{\an5\pos(540,1460)}できます
+Dialogue: 0,0:00:03.87,0:00:05.24,Default,,0,0,0,,{\an5\pos(540,1460)}研究チームが
+Dialogue: 0,0:00:05.30,0:00:07.24,Default,,0,0,0,,{\an5\pos(540,1460)}テッポウウオに{\c&H14CCFF&}\N水を吐かせて{\c&HFFFFFF&}
+Dialogue: 0,0:00:07.30,0:00:09.72,Default,,0,0,0,,{\an5\pos(540,1460)}画面の顔写真を\N選ばせる実験を
+Dialogue: 0,0:00:09.72,0:00:10.59,Default,,0,0,0,,{\an5\pos(540,1460)}行いました
+Dialogue: 0,0:00:10.65,0:00:13.36,Default,,0,0,0,,{\an5\pos(540,1460)}初めて見る顔を\N18人分混ぜても
+Dialogue: 0,0:00:13.42,0:00:15.92,Default,,0,0,0,,{\an5\pos(540,1460)}学習した顔を{\c&H14CCFF&}86%{\c&HFFFFFF&}の\N精度で
+Dialogue: 0,0:00:15.92,0:00:17.46,Default,,0,0,0,,{\an5\pos(540,1460)}見分け続けました
+Dialogue: 0,0:00:17.52,0:00:18.92,Default,,0,0,0,,{\an5\pos(540,1460)}髪型や肌の色
+Dialogue: 0,0:00:18.98,0:00:21.29,Default,,0,0,0,,{\an5\pos(540,1460)}画像の明るさを{\c&H14CCFF&}\Nすべてそろえても{\c&HFFFFFF&}
+Dialogue: 0,0:00:21.35,0:00:23.54,Default,,0,0,0,,{\an5\pos(540,1460)}同じように\N見分けられたのです
+Dialogue: 0,0:00:23.60,0:00:24.74,Default,,0,0,0,,{\an5\pos(540,1460)}テッポウウオは
+Dialogue: 0,0:00:24.80,0:00:26.53,Default,,0,0,0,,{\an5\pos(540,1460)}{\c&H14CCFF&}大きな脳を\N持たなくても{\c&HFFFFFF&}
+Dialogue: 0,0:00:26.59,0:00:27.93,Default,,0,0,0,,{\an5\pos(540,1460)}人の顔を\N見分けられる
+Dialogue: 0,0:00:27.93,0:00:28.74,Default,,0,0,0,,{\an5\pos(540,1460)}生き物でした
