@@ -65,9 +65,9 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 | 用途 | 素材 | 出どころ | ライセンス | 取得日 |
 |---|---|---|---|---|
 | ① テッポウウオのアップ | `f1.jpg` | [Pexels](https://www.pexels.com/photo/detailed-view-of-archer-fish-swimming-in-an-aquarium-with-blurred-background-36180419/)（Jeffry Surianto） | 商用可・クレジット表記不要 | 2026-10-18 |
-| ② 図解：画面の顔写真に水を吐くテッポウウオ | `f2.jpg`（生成予定） | 生成AI | 生成物 | |
-| ③ 図解：並んだ顔写真の中から選ぶイメージ | `f3.jpg`（生成予定） | 生成AI | 生成物 | |
-| ④ 図解：条件をそろえた顔写真のイメージ | `f4.jpg`（生成予定） | 生成AI | 生成物 | |
+| ② 図解：画面の顔写真に水を吐くテッポウウオ | `f2.jpg` | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | 2026-10-18 |
+| ③ 図解：並んだ顔写真の中から選ぶイメージ | `f3.jpg` | 生成AI（プロンプトはこのチャットのやりとり参照） | 生成物 | 2026-10-18 |
+| ④ 白黒のポートレート写真（ナレーション内容とは厳密には対応しない代用） | `f4.jpg` | [Pexels](https://www.pexels.com/photo/close-up-black-and-white-headshot-of-a-young-man-looking-at-the-camera-12275727/)（Centaurus Picture） | 商用可・クレジット表記不要 | 2026-10-18 |
 | ⑤ 泳ぐテッポウウオのアップ | `f5.mp4` | [Pexels](https://www.pexels.com/video/archerfish-swimming-gracefully-in-aquarium-34945019/)（Magda Ehlers） | 商用可・クレジット表記不要 | 2026-10-18 |
 
 # 画像生成プロンプト
