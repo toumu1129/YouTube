@@ -2,8 +2,8 @@
 id: s038
 生き物: ネコ（Felis catus, Domestic cat）
 フック型: E（意外な事実／常識の否定）
-尺:              # 秒（VOICEVOX実測後に確定）
-ステータス: 台本確認中
+尺: 28.9秒
+ステータス: 動画完成
 投稿日:
 ---
 
@@ -69,7 +69,11 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 
 | 用途 | 素材 | 出どころ | ライセンス | 取得日 |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| ① 猫のアップ（耳がこちらを向く） | `f1.jpg` | [Pexels](https://www.pexels.com/photo/british-shorthair-cat-with-striking-amber-eyes-34464846/)（MUHAMMED ALI） | 商用可・クレジット表記不要 | 2026-10-18 |
+| ② 図解：スピーカーから声を聞く猫 | `f2.jpg` | [Pexels](https://www.pexels.com/photo/a-cat-sitting-on-the-metallic-equipment-5552482/)（Alina Vilchenko） | 商用可・クレジット表記不要 | 2026-10-18 |
+| ③ 図解：複数の言葉カードと反応グラフのイメージ（ナレーション内容とは厳密には対応しない代用） | `f3.jpg` | [Pexels](https://www.pexels.com/photo/tabby-cat-27153320/)（Erwin Salas） | 商用可・クレジット表記不要 | 2026-10-18 |
+| ④ 図解：知らない人の声で反応する猫 | `f4.jpg` | [Pexels](https://www.pexels.com/photo/hand-of-a-person-petting-white-long-fur-cat-5667744/)（ROMAN ODINTSOV） | 商用可・クレジット表記不要 | 2026-10-18 |
+| ⑤ 猫のアップ（くつろぐ様子） | `f5.mp4` | [Pexels](https://www.pexels.com/video/relaxed-british-shorthair-cat-on-sofa-30337438/)（Pexelsユーザー a-b-s-1302114817） | 商用可・クレジット表記不要 | 2026-10-18 |
 
 # 画像生成プロンプト
 
