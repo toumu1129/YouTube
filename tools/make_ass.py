@@ -59,7 +59,7 @@ TIER0_CHARS = "、。！？"
 TIER1_CHARS = "はがをに"
 TIER1_SUFFIXES = ("から", "まで", "より", "ながら")
 TIER2_CHARS = "へでもとのるたてりいだ"
-TIER2_SUFFIXES = ("だけ", "まま", "ので", "けど", "ことで")
+TIER2_SUFFIXES = ("だけ", "まま", "ので", "けど", "ことで", "として", "という")
 NO_SPLIT = {"こと", "もの", "ため", "よう", "ます", "ませ", "でし", "まし", "れる", "られ",
             "です", "ない", "とい", "いう", "って", "った", "ある", "いる",
             "では", "には", "とは", "もは", "へは", "らは", "とっ"}
@@ -138,6 +138,26 @@ def parse_srt(srt_path):
     return cards
 
 
+_PROTECTED_WORDS = TIER1_SUFFIXES + TIER2_SUFFIXES + tuple(FORMAL_N)
+
+
+def _protected_spans(s):
+    """「…」や「として」のような複数文字表現の内部で切れないよう、
+    (開始, 終了) の区間リストを返す（終了は、その表現の次の文字の
+    インデックス＝Pythonのスライスと同じ意味）。
+    """
+    spans = [(m.start(), m.end()) for m in re.finditer(r"「[^」]*」", s)]
+    for word in _PROTECTED_WORDS:
+        start = 0
+        while True:
+            idx = s.find(word, start)
+            if idx == -1:
+                break
+            spans.append((idx, idx + len(word)))
+            start = idx + 1
+    return spans
+
+
 def _break_point(s, max_len, min_len=MIN_LINE):
     """sの先頭 [min_len, max_len] 字の範囲で切る、一番良い位置を返す。
 
@@ -145,12 +165,26 @@ def _break_point(s, max_len, min_len=MIN_LINE):
     発想）。これにより「文の前半だけ短く切って後が長く余る」のを防ぎ、
     2つの文節の長さがなるべく揃う位置で切れる。
     """
-    best = None
     lo = min(min_len, len(s))
     hi = min(len(s), max_len)
+    spans = _protected_spans(s)
+    # 保護区間の内部にmax_lenの位置がかかっている場合、その表現全体を
+    # 同じ行に収められるよう探索範囲を少し広げる（延びすぎないよう、
+    # 広げる幅には上限を設ける）。
+    for start, end in spans:
+        if start < hi < end and end - hi <= 6:
+            hi = min(len(s), end)
+
+    forbidden = set()
+    for start, end in spans:
+        forbidden.update(range(start + 1, end))
+
+    best = None
     mid = len(s) / 2
     for i in range(lo, hi + 1):
         if i < len(s) and (s[i - 1:i + 1] in NO_SPLIT or s[i - 1:i + 1] in _SUFFIX_NO_SPLIT):
+            continue
+        if i in forbidden:
             continue
         tier = _tier_at(s, i)
         if s[max(0, i - 2):i] in FORMAL_N:
