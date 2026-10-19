@@ -12,7 +12,7 @@ Style: Default,BIZ UDGothic,78,&H00FFFFFF&,&H000000FF&,&H00000000&,&H00000000&,1
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 Dialogue: 0,0:00:00.00,0:00:00.97,Default,,0,0,0,,{\an5\pos(540,1460)}猫は
-Dialogue: 0,0:00:01.03,0:00:02.58,Default,,0,0,0,,{\an5\pos(540,1460)}{\c&H14CCFF&}自分の名前{\c&HFFFFFF&}を他の\N言葉と
+Dialogue: 0,0:00:01.03,0:00:02.58,Default,,0,0,0,,{\an5\pos(540,1460)}{\c&H14CCFF&}自分の名前{\c&HFFFFFF&}を\N他の言葉と
 Dialogue: 0,0:00:02.58,0:00:04.00,Default,,0,0,0,,{\an5\pos(540,1460)}聞き分けていることが
 Dialogue: 0,0:00:04.06,0:00:05.89,Default,,0,0,0,,{\an5\pos(540,1460)}研究でわかっています
 Dialogue: 0,0:00:05.96,0:00:07.37,Default,,0,0,0,,{\an5\pos(540,1460)}研究チームが
@@ -25,5 +25,5 @@ Dialogue: 0,0:00:16.25,0:00:18.52,Default,,0,0,0,,{\an5\pos(540,1460)}多くの�
 Dialogue: 0,0:00:18.57,0:00:21.09,Default,,0,0,0,,{\an5\pos(540,1460)}{\c&H14CCFF&}知らない人の声{\c&HFFFFFF&}で\N名前を呼んだときも
 Dialogue: 0,0:00:21.15,0:00:23.61,Default,,0,0,0,,{\an5\pos(540,1460)}同じように反応が\N強まったのです
 Dialogue: 0,0:00:23.67,0:00:25.23,Default,,0,0,0,,{\an5\pos(540,1460)}猫を飼っている方は
-Dialogue: 0,0:00:25.29,0:00:27.30,Default,,0,0,0,,{\an5\pos(540,1460)}名前を呼んだと\Nきの反応を
+Dialogue: 0,0:00:25.29,0:00:27.30,Default,,0,0,0,,{\an5\pos(540,1460)}名前を呼んだ\Nときの反応を
 Dialogue: 0,0:00:27.36,0:00:28.95,Default,,0,0,0,,{\an5\pos(540,1460)}{\c&H14CCFF&}ぜひ観察して\Nみてください{\c&HFFFFFF&}
