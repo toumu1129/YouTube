@@ -10,7 +10,6 @@
     元のRounded Mplus 1c Blackから変更。assets/fonts/BIZUDGothic-Bold.ttf）
   - 白文字＋太い黒フチ、強調語だけ黄色（実測 RGB 235,203,15 相当）
   - テロップの垂直方向の「中心」が、1行でも2行でも常に同じ位置に来る
-    （画面下からの実測: 1行の中心1458.5px、2行の中心1460.5px、ほぼ一致）
     → ASSのAlignment依存のマージン積み上げではなく、\\pos+\\an5で
       毎カード同じ中心座標に固定する
   - 1行あたりの文字数は、make_srt.pyの「12字まで目一杯詰める」より
@@ -18,6 +17,13 @@
     make_srt.pyが1枚のSRTカードとして確定した長い文節（音声の無音検出
     による区切り）を、表示上はさらに複数のテロップカードに割って
     見せている（同じ発話区間の時間を文字数比で配分）。
+  - フォントサイズと行間は、参考動画3本の実際のテロップ画像をピクセル単位で
+    実測して決めている（s038のユーザーフィードバックを機に再実測・拡大）。
+    2行カードは、フォント内蔵の行送り(\\N)に任せず、1行ずつ別のDialogueとして
+    \\pos+\\an5で明示配置する（LINE_PITCHで行間を直接指定できるようにするため。
+    ASSのスタイル定義には行間そのものを指定する項目が無く、\\Nに頼ると
+    フォント内蔵の行送りが詰まって見える）。これにより2行ブロックの中心は
+    常にPOS_Yに一致する（構造上保証される。実測して合わせる必要がない）。
 
 強調語の着色は「台本の# 台本表の強調語列」を、分割後の各カードの表示
 文字列に対して順番に1回だけ割り当てる（同じ語が2回出ても2回目以降は
@@ -30,12 +36,13 @@ import sys
 OW, OH = 1080, 1920
 POS_X, POS_Y = OW // 2, 1460   # テロップの中心（実測値）
 FONT_NAME = "BIZ UDGothic"
-FONT_SIZE = 78
-OUTLINE = 7
+FONT_SIZE = 92   # 参考動画の実測で、以前の78pxは小さすぎると判明し拡大
+OUTLINE = 8
 HIGHLIGHT_BGR = "14CCFF"   # ASS は &HBBGGRR&。RGB(255,204,20) 相当の黄色
 WHITE_BGR = "FFFFFF"
+LINE_PITCH = 136   # 2行カードの行中心どうしの距離(px)。参考動画の実測値
 
-MAX_LINE = 10   # 1行の目安文字数（make_srt.pyのMAX_PER_LN=12より短い）
+MAX_LINE = 10   # 1行の目安文字数（フォント拡大後も実測で1080px内に収まることを確認済み）
 MIN_LINE = 3    # これより短い断片は作らない
 
 # 行の切れ目として良い位置（良い順）。make_srt.pyのBREAK_TIERSと考え方は
@@ -260,11 +267,24 @@ def main():
             )
             used[wi] = True
             break
-        ass_text = ass_text.replace("\n", "\\N")
-        pos = f"{{\\an5\\pos({POS_X},{POS_Y})}}"
-        lines.append(
-            f"Dialogue: 0,{ass_timestamp(start)},{ass_timestamp(end)},Default,,0,0,0,,{pos}{ass_text}\n"
-        )
+
+        parts = ass_text.split("\n")
+        if len(parts) == 2:
+            # 強調語の色タグが行をまたいでいたら、分割後もそれぞれの行で
+            # 開始・終了が揃うように補う（1行目は閉じる、2行目は開き直す）。
+            open_tag = f"{{\\c&H{HIGHLIGHT_BGR}&}}"
+            close_tag = f"{{\\c&H{WHITE_BGR}&}}"
+            if parts[0].count(open_tag) > parts[0].count(close_tag):
+                parts[0] += close_tag
+                parts[1] = open_tag + parts[1]
+            ys = (POS_Y - LINE_PITCH / 2, POS_Y + LINE_PITCH / 2)
+        else:
+            ys = (POS_Y,)
+        for part, y in zip(parts, ys):
+            pos = f"{{\\an5\\pos({POS_X},{y:.0f})}}"
+            lines.append(
+                f"Dialogue: 0,{ass_timestamp(start)},{ass_timestamp(end)},Default,,0,0,0,,{pos}{part}\n"
+            )
 
     pathlib.Path(out_path).write_text("".join(lines), encoding="utf-8")
     unmatched = [w for w, u in zip(emphasis_words, used) if not u]
