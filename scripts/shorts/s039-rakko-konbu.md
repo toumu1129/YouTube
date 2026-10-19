@@ -2,8 +2,8 @@
 id: s039
 生き物: ラッコ（Enhydra lutris, Sea otter）
 フック型: E（意外な事実／常識の否定）
-尺:              # 秒（VOICEVOX実測後に確定）
-ステータス: 台本確認中
+尺: 27.2秒
+ステータス: 動画完成
 投稿日:
 ---
 
@@ -75,7 +75,11 @@ VOICEVOXのアクセント編集で当てる。**表示テキスト（＝テロ�
 
 | 用途 | 素材 | 出どころ | ライセンス | 取得日 |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| ① 親子ラッコの実写 | `f1.jpg` | [Pexels](https://www.pexels.com/photo/mother-sea-otter-with-baby-in-alaskan-waters-39063084/)（A G） | 商用可・クレジット表記不要 | 2026-10-19 |
+| ② コンブに浮かぶ子ラッコのアップ（ナレーション内容とは厳密には対応しない代用。成体の可能性あり） | `f2.jpg` | [Pexels](https://www.pexels.com/photo/sea-otter-floating-in-morro-bay-california-waters-38656375/)（Jesus Toledo） | 商用可・クレジット表記不要 | 2026-10-19 |
+| ③ 図解：母親が子どもをコンブに包む様子（厳密には「包む」動作そのものではない代用） | `f3.jpg` | [Pexels](https://www.pexels.com/photo/captivating-sea-otter-floating-in-californian-waters-37365205/)（Chris Spain） | 商用可・クレジット表記不要 | 2026-10-19 |
+| ④ 母親ラッコが潜る様子（水に潜る実写。野生の採食ダイブではなく施設内の個体） | `f4.mp4` | [Pexels](https://www.pexels.com/video/playful-sea-otter-exploring-rocky-shore-34945108/)（Magda Ehlers） | 商用可・クレジット表記不要 | 2026-10-19 |
+| ⑤ 寄り添う母子ラッコのアップ（動画からの静止画切り出し。親子と確認はできない） | `f5.jpg` | [Pexels](https://www.pexels.com/video/sea-otters-swimming-2554522/)（Magda Ehlers） | 商用可・クレジット表記不要 | 2026-10-19 |
 
 # 画像生成プロンプト
 
